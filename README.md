@@ -4,7 +4,10 @@ Based in [CETEIcean](https://github.com/TEIC/CETEIcean).
 ## Usage
 
 ```javascript
-<TEIRender data={'your-text.tei'} path={'path/to/your/mei'}>
+const cetei = new CETEI()
+const data = await cetei.getHTML5(`path/to/file.tei`)
+
+<TEIRender data={data} path={'path/to'}>
   <TEIRoute el='tei-teiheader' component={Header}/>
   <TEIRoute el='tei-notatedmusic' component={MusicExample}/>
   <TEIRoute el='tei-ref' component={Reference}/>
