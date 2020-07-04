@@ -1,8 +1,7 @@
 import React from 'react'
 import TEIElement from './TEIElement'
 import warning from 'tiny-warning'
-
-const TEIRoutes = React.createContext()
+import TEIRoutes from './TEIRoutes'
 
 class TEIRoute extends React.Component {
   componentDidMount() {
@@ -44,4 +43,4 @@ class TEIRender extends React.Component {
   }
 }
 
-export { TEIRender, TEIRoute, TEIRoutes }
+export { TEIRender, TEIRoute }
