@@ -3,7 +3,7 @@ Based in [CETEIcean](https://github.com/TEIC/CETEIcean).
 
 ## Usage
 
-```javascript
+```JSX
 const cetei = new CETEI()
 const data = await cetei.getHTML5(`path/to/file.tei`)
 
@@ -19,7 +19,7 @@ const data = await cetei.getHTML5(`path/to/file.tei`)
 
 Now custom components ("routes") can be defined for `teiHeader`, `notatedMusic` etc., for example:
 
-```javascript
+```JSX
 const Reference = (props) => {
   const target = props.teiDomElement.getAttribute('target')
 
