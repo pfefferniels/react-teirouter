@@ -22,7 +22,7 @@ class TEIRender extends React.Component {
   constructor(props) {
     super(props)
 
-    props.children.forEach(route => {
+    React.Children.forEach(props.children, route => {
       this.availableRoutes.push(route.props.el)
       if (route.props.children) {
         this.routes[route.props.el] = route.props.children
