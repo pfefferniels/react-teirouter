@@ -4,12 +4,10 @@ Based in [CETEIcean](https://github.com/TEIC/CETEIcean).
 ## Usage
 
 ```JSX
-const cetei = new CETEI()
-const data = await cetei.getHTML5(`path/to/file.tei`)
-
-<TEIRender data={data} path={'path/to'}>
+<TEIRender data='path/to/your.tei'>
   <TEIRoute el='tei-teiheader' component={Header}/>
-  <TEIRoute el='tei-notatedmusic' component={MusicExample}/>
+  <TEIRoute el='tei-notatedmusic' component={NotatedMusic}/>
+  <TEIRoute el='tei-media' component={Media}/>
   <TEIRoute el='tei-ref' component={Reference}/>
   <TEIRoute el='tei-persname'>
     <LinkToIndex type='indexOfPersons'/>
@@ -17,7 +15,7 @@ const data = await cetei.getHTML5(`path/to/file.tei`)
 </TEIRender>
 ```
 
-Now custom components ("routes") can be defined for `teiHeader`, `notatedMusic` etc., for example:
+Now custom components ("routes") can be defined for `teiHeader`, `notatedMusic`, `media` etc., for example:
 
 ```JSX
 const Reference = (props) => {

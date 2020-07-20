@@ -1,5 +1,5 @@
 import React from 'react'
-import { TEIRoutes } from './TEIRoutes'
+import TEIRoutes from './TEIRoutes'
 
 // This is based on an idea found here, but taking it a step further:
 // https://github.com/raffazizzi/mermtt/blob/master/src/TeiElement.js
