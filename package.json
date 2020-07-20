@@ -1,6 +1,6 @@
 {
   "name": "react-teirouter",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "TEI for React using CETEIcean and routes",
   "author": "pfefferniels <niels.pfeffer@gmail.com>",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "ceteicean"
   ],
   "dependencies": {
+    "CETEIcean": "^1.2.1",
     "tiny-warning": "^1.0.3"
   },
   "scripts": {
