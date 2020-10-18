@@ -57,14 +57,16 @@ class TEIRender extends React.Component {
   }
 
   async componentDidMount() {
+    warning(!(this.props.tei && this.props.teiData),
+      `You should not use the tei prop and teiData prop at the same time.`)
+
     if (this.props.tei) {
       const teiData = await teiUrlToHtml(this.props.tei)
       this.setState({
         teiData,
         teiPath: path.dirname(this.props.tei)
       })
-      return
-    } else if (this.props.teiData && this.props.teiPath) {
+    } else if (this.props.teiData && this.props.path) {
       this.setState({
         teiData: teiStringToHtml(this.props.teiData),
         teiPath: this.props.path
