@@ -20,7 +20,7 @@ const teiStringToHtml = (data) => {
     'teiHeader': undefined
   })
 
-  return ct.makeHTML5(file)
+  return ct.makeHTML5(data)
 }
 
 class TEIRoute extends React.Component {
@@ -37,7 +37,8 @@ class TEIRoute extends React.Component {
 
 class TEIRender extends React.Component {
   state = {
-    teiData: null
+    teiData: null,
+    teiPath: null
   }
 
   availableRoutes = []
