@@ -68,8 +68,10 @@ class TEIRender extends React.Component {
         teiPath: path.dirname(this.props.tei)
       })
     } else if (this.props.teiData && this.props.path) {
+      const teiData = teiStringToHtml(this.props.teiData)
+      console.log('teiData:', teiData)
       this.setState({
-        teiData: teiStringToHtml(this.props.teiData),
+        teiData,
         teiPath: this.props.path
       })
     }
