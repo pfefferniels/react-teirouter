@@ -1,27 +1,7 @@
-import CETEI from 'CETEIcean'
-import path from 'path'
 import React from 'react'
 import warning from 'tiny-warning'
-import TEIElement from './TEIElement'
+import { TEINode, TEINodes } from './TEINode'
 import TEIRoutes from './TEIRoutes'
-
-const teiUrlToHtml = async (file) => {
-  const ct = new CETEI()
-  ct.addBehaviors({
-    'teiHeader': undefined
-  })
-
-  return ct.getHTML5(file)
-}
-
-const teiStringToHtml = (data) => {
-  const ct = new CETEI()
-  ct.addBehaviors({
-    'teiHeader': undefined
-  })
-
-  return ct.makeHTML5(data)
-}
 
 class TEIRoute extends React.Component {
   componentDidMount() {
@@ -36,11 +16,6 @@ class TEIRoute extends React.Component {
 }
 
 class TEIRender extends React.Component {
-  state = {
-    teiData: null,
-    teiPath: null
-  }
-
   availableRoutes = []
   routes = {}
 
@@ -57,39 +32,18 @@ class TEIRender extends React.Component {
     })
   }
 
-  async componentDidMount() {
-    warning(!(this.props.tei && this.props.teiData),
-      `You should not use the tei prop and teiData prop at the same time.`)
-
-    if (this.props.tei) {
-      const teiData = await teiUrlToHtml(this.props.tei)
-      this.setState({
-        teiData,
-        teiPath: path.dirname(this.props.tei)
-      })
-    } else if (this.props.teiData && this.props.path) {
-      const teiData = teiStringToHtml(this.props.teiData)
-      console.log('teiData:', teiData)
-      this.setState({
-        teiData,
-        teiPath: this.props.path
-      })
-    }
-  }
-
   render() {
-    if (!this.state.teiData) {
+    if (!this.props.data) {
       return (null)
     }
 
     return (
       <TEIRoutes.Provider value={this.routes}>
-        <TEIElement teiDomElement={this.state.teiData}
-                    teiPath={this.state.teiPath}
-                    availableRoutes={this.availableRoutes}/>
+        <TEINode teiNode={this.props.data}
+                 availableRoutes={this.availableRoutes}/>
       </TEIRoutes.Provider>
     )
   }
 }
 
-export { TEIRender, TEIRoute }
+export { TEIRender, TEIRoute, TEINode, TEINodes }

@@ -1,7 +1,7 @@
 {
   "name": "react-teirouter",
-  "version": "1.1.4",
-  "description": "TEI for React using CETEIcean and routes",
+  "version": "2.0.0",
+  "description": "TEI for React",
   "author": "pfefferniels <niels.pfeffer@gmail.com>",
   "license": "MIT",
   "files": [
@@ -14,26 +14,31 @@
     "ceteicean"
   ],
   "dependencies": {
-    "CETEIcean": "^1.2.1",
     "tiny-warning": "^1.0.3"
   },
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "examples": "rollup --config rollup-examples.config.js"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.13.15",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.10.4",
     "@rollup/plugin-babel": "^5.0.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "react": "^16.13.1",
-    "rollup": "^2.18.2"
+    "@rollup/plugin-replace": "^2.4.2",
+    "CETEIcean": "^1.2.1",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup": "^2.18.2",
+    "rollup-plugin-copy": "^3.4.0"
   }
 }
