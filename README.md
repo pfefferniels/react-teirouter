@@ -42,7 +42,7 @@ Make sure to pass the rest of the properties to keep applying routes to children
 
 ```JSX
 const Reference = (props) => {
-  const target = props.teiDomElement.getAttribute('target')
+  const target = props.teiNode.getAttribute('target')
 
   return (
     <Link to={target}>
