@@ -1,17 +1,7 @@
-import CETEI from 'CETEIcean'
-import path from 'path'
 import React from 'react'
 import warning from 'tiny-warning'
-import TEIElement from './TEIElement'
+import { TEINode, TEINodes } from './TEINode'
 import TEIRoutes from './TEIRoutes'
-
-const teiToHtml = async (file) => {
-  const ct = new CETEI()
-  ct.addBehaviors({
-    'teiHeader': undefined
-  })
-  return ct.getHTML5(file)
-}
 
 class TEIRoute extends React.Component {
   componentDidMount() {
@@ -26,10 +16,6 @@ class TEIRoute extends React.Component {
 }
 
 class TEIRender extends React.Component {
-  state = {
-    teiData: null
-  }
-
   availableRoutes = []
   routes = {}
 
@@ -46,26 +32,18 @@ class TEIRender extends React.Component {
     })
   }
 
-  async componentDidMount() {
-    const teiData = await teiToHtml(this.props.tei)
-    this.setState({
-      teiData
-    })
-  }
-
   render() {
-    if (!this.state.teiData) {
+    if (!this.props.data) {
       return (null)
     }
 
     return (
       <TEIRoutes.Provider value={this.routes}>
-        <TEIElement teiDomElement={this.state.teiData}
-                    teiPath={path.dirname(this.props.tei)}
-                    availableRoutes={this.availableRoutes}/>
+        <TEINode teiNode={this.props.data}
+                 availableRoutes={this.availableRoutes}/>
       </TEIRoutes.Provider>
     )
   }
 }
 
-export { TEIRender, TEIRoute }
+export { TEIRender, TEIRoute, TEINode, TEINodes }
