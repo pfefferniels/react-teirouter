@@ -1,10 +1,18 @@
+# React TEI Router
+
 Render TEI files intuitively in React.js using custom routes for TEI elements.
-Based in [CETEIcean](https://github.com/TEIC/CETEIcean).
+
+The main components `TEIRender` takes in a DOM object and custom routes can be defined to attach components
+to elements in the DOM by name.
+
+For TEI rendering we recommend generating the DOM Object with [CETEIcean](https://github.com/TEIC/CETEIcean). See the example in `examples/ceteicean.js` for usage.
 
 ## Usage
 
 ```JSX
-<TEIRender data='path/to/your.tei'>
+const domData // a DOM object, e.g. generated with CETEIcean.
+
+<TEIRender data={domData}>
   <TEIRoute el='tei-teiheader' component={Header}/>
   <TEIRoute el='tei-notatedmusic' component={NotatedMusic}/>
   <TEIRoute el='tei-media' component={Media}/>
@@ -28,3 +36,19 @@ const Reference = (props) => {
   )
 }
 ```
+
+To continue applying routes to children, the API exposes `TEINode` for single nodes and `TEINodes` for DOM `NodeList`s.
+Make sure to pass the rest of the properties to keep applying routes to children nodes.
+
+```JSX
+const Reference = (props) => {
+  const target = props.teiDomElement.getAttribute('target')
+
+  return (
+    <Link to={target}>
+      {<TEINodes teiNodes={props.teiNode.childNodes} {...props} />}
+    </Link>
+  )
+}
+```
+

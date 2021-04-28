@@ -1,40 +1,51 @@
 import React from 'react'
 import TEIRoutes from './TEIRoutes'
 
-// This is based on an idea found here, but taking it a step further:
-// https://github.com/raffazizzi/mermtt/blob/master/src/TeiElement.js
+class TEINodes extends React.Component {
+  render() {
+    let nodes
+    if (NodeList.prototype.isPrototypeOf(this.props.teiNodes)) {
+      nodes = Array.from(this.props.teiNodes)
+    } else if (Array.isArray(this.props.teiNodes)) {
+      nodes = this.props.teiNodes
+    } else {
+      return null
+    }
 
-class TEIElement extends React.Component {
+    return nodes.map((child, i) => {
+      return <TEINode key={`${child.tagName}${i}`}
+                      teiNode={child}
+                      availableRoutes={this.props.availableRoutes}/>
+    })
+  }
+}
+
+class TEINode extends React.Component {
   forwardTeiAttributes() {
-    return Array.from(this.props.teiDomElement.attributes).reduce((acc, att) => {
-      acc[att.name === 'ref' ? '_ref' : att.name] = att.value
+    return Array.from(this.props.teiNode.attributes).reduce((acc, att) => {
+      acc[att.name === 'ref' ? 'Ref' : att.name] = att.value
       return acc
     }, {})
   }
 
   render() {
-    const el = this.props.teiDomElement
+    if (!this.props.teiNode) return null
+
+    if (this.props.teiNode.nodeType === 3) {
+      return this.props.teiNode.nodeValue
+    }
+
+    if (this.props.teiNode.nodeType !== 1 ) return null
+
+    const el = this.props.teiNode
     const tagName = el.tagName.toLowerCase()
 
-    const teiChildren = Array.from(el.childNodes).map((teiEl, i) => {
-      switch (teiEl.nodeType) {
-        case Node.ELEMENT_NODE:
-          return (
-            <TEIElement key={`${teiEl.tagName}${i}`}
-                        teiDomElement={teiEl}
-                        teiPath={this.props.teiPath}
-                        availableRoutes={this.props.availableRoutes}/>)
-        case Node.TEXT_NODE:
-          return teiEl.nodeValue
-        default:
-          return null
-      }
-    })
+    const teiChildren = <TEINodes teiNodes={el.childNodes} {...this.props} />
 
     if (this.props.availableRoutes.includes(tagName)) {
       const propsClone = {
         ...this.props,
-        teiDomElement: this.props.teiDomElement.cloneNode(true)
+        teiNode: el.cloneNode(true)
       }
 
       return (
@@ -65,4 +76,4 @@ class TEIElement extends React.Component {
   }
 }
 
-export default TEIElement
+export { TEINode, TEINodes }
