@@ -3,14 +3,7 @@ import TEIRoutes from './TEIRoutes'
 
 class TEINodes extends React.Component {
   render() {
-    let nodes
-    if (NodeList.prototype.isPrototypeOf(this.props.teiNodes)) {
-      nodes = Array.from(this.props.teiNodes)
-    } else if (Array.isArray(this.props.teiNodes)) {
-      nodes = this.props.teiNodes
-    } else {
-      return null
-    }
+    const nodes = Array.from(this.props.teiNodes)
 
     return nodes.map((child, i) => {
       return <TEINode key={`${child.tagName}${i}`}
