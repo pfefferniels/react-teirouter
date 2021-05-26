@@ -1,5 +1,6 @@
 import React from 'react'
 import TEIRoutes from './TEIRoutes'
+import { toJSON } from 'cssjson'
 
 class TEINodes extends React.Component {
   render() {
@@ -16,7 +17,16 @@ class TEINodes extends React.Component {
 class TEINode extends React.Component {
   forwardTeiAttributes() {
     return Array.from(this.props.teiNode.attributes).reduce((acc, att) => {
-      acc[att.name === 'ref' ? 'Ref' : att.name] = att.value
+      switch (att.name) {
+        case 'ref':
+          acc['Ref'] = att.value
+          break
+        case 'style':
+          acc['style'] = toJSON(att.value)
+          break
+        default:
+          acc[att.name] = att.value
+      }
       return acc
     }, {})
   }
