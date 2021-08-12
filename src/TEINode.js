@@ -35,6 +35,24 @@ class TEINode extends React.Component {
     if (!this.props.teiNode) return null
 
     if (this.props.teiNode.nodeType === 3) {
+      if (this.props.availableRoutes.includes('text()')) {
+        const propsClone = {
+          ...this.props,
+          teiNode: this.props.teiNode
+        }
+        return (
+          <TEIRoutes.Consumer>
+            {(routes) => {
+              const selectedRoute = routes['text()']
+              if (React.isValidElement(selectedRoute)) {
+                return React.cloneElement(selectedRoute, {...propsClone},)
+              }
+  
+              return React.createElement(selectedRoute, propsClone)
+            }}
+          </TEIRoutes.Consumer>
+        )
+      }
       return this.props.teiNode.nodeValue
     }
 
