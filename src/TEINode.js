@@ -33,49 +33,55 @@ class TEINode extends React.Component {
 
   render() {
     if (!this.props.teiNode) return null
-        
+
+    let matchName
+    let teiChildren
+
+    // Return an element if this is a text node and there is a text() route
+    // or if a route matches the current element node's tagname.
     if (this.props.teiNode.nodeType === 3) {
-      return this.props.teiNode.nodeValue
-    }
-    
-    if (this.props.teiNode.nodeType !== 1) return null
-
-    const el = this.props.teiNode
-    const tagName = el.tagName.toLowerCase()
-
-    const teiChildren = <TEINodes teiNodes={el.childNodes} {...this.props} />
-
-    if (this.props.availableRoutes.includes(tagName)) {
-      const propsClone = {
-        ...this.props,
-        teiNode: el
+      if (this.props.availableRoutes.includes('text()')) {
+        matchName = 'text()'
+      } else {
+        return this.props.teiNode.nodeValue
       }
+    } else if (this.props.teiNode.nodeType === 1) {
+      const el = this.props.teiNode
+      const tagName = el.tagName.toLowerCase()
+      teiChildren = <TEINodes teiNodes={el.childNodes} {...this.props} />
 
-      return (
-        <TEIRoutes.Consumer>
-          {(routes) => {
-            const selectedRoute = routes[tagName]
-
-            // Routes can be given as child elements that are
-            // created already and need to be cloned here,
-            // or as a component, that is not yet instantiated.
-            if (React.isValidElement(selectedRoute)) {
-              return React.cloneElement(selectedRoute,
-                                        {...propsClone},
-                                        teiChildren)
-            }
-
-            return React.createElement(selectedRoute,
-                                       propsClone,
-                                       teiChildren)
-          }}
-        </TEIRoutes.Consumer>
-      )
+      if (this.props.availableRoutes.includes(tagName)) {
+        matchName = tagName
+      } else {
+        // Return unchanged element.
+        return React.createElement(tagName,
+          {...this.forwardTeiAttributes()},
+          teiChildren)
+      }
+    } else {
+      return null
     }
 
-    return React.createElement(tagName,
-                               {...this.forwardTeiAttributes()},
-                               teiChildren)
+    return (
+      <TEIRoutes.Consumer>
+        {(routes) => {
+          const selectedRoute = routes[matchName]
+
+          // Routes can be given as child elements that are
+          // created already and need to be cloned here,
+          // or as a component, that is not yet instantiated.
+          if (React.isValidElement(selectedRoute)) {
+            return React.cloneElement(selectedRoute,
+                                      {...this.props},
+                                      teiChildren)
+          }
+
+          return React.createElement(selectedRoute,
+                                      {...this.props},
+                                      teiChildren)
+        }}
+      </TEIRoutes.Consumer>
+    )
   }
 }
 

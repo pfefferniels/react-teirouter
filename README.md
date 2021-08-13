@@ -51,3 +51,9 @@ const Reference = (props) => {
   )
 }
 ```
+
+It is also possible to specify a route to match text nodes using the keyword `text()`:
+
+```JSX
+<TEIRoute el='text()' component={TextNodeHandler}/>
+```
