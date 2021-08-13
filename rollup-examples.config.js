@@ -34,7 +34,8 @@ export default {
     commonjs(),
     copy({
       targets: [
-        { src: 'examples/index.html', dest: 'dist/public' }
+        { src: 'examples/index.html', dest: 'dist/public' },
+        { src: 'examples/testTEI.xml', dest: 'dist/public' }
       ]
     }),
   ]
