@@ -1,6 +1,10 @@
 {
   "name": "react-teirouter",
+<<<<<<< HEAD
   "version": "2.1.0",
+=======
+  "version": "2.0.5",
+>>>>>>> a7bf8f61a6f01afa0638bba60da8e018c0d985bd
   "description": "TEI for React",
   "author": "pfefferniels <niels.pfeffer@gmail.com>",
   "license": "MIT",

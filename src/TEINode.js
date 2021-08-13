@@ -33,7 +33,7 @@ class TEINode extends React.Component {
 
   render() {
     if (!this.props.teiNode) return null
-
+        
     if (this.props.teiNode.nodeType === 3) {
       if (this.props.availableRoutes.includes('text()')) {
         const propsClone = {
@@ -55,8 +55,8 @@ class TEINode extends React.Component {
       }
       return this.props.teiNode.nodeValue
     }
-
-    if (this.props.teiNode.nodeType !== 1 ) return null
+    
+    if (this.props.teiNode.nodeType !== 1) return null
 
     const el = this.props.teiNode
     const tagName = el.tagName.toLowerCase()
@@ -66,7 +66,7 @@ class TEINode extends React.Component {
     if (this.props.availableRoutes.includes(tagName)) {
       const propsClone = {
         ...this.props,
-        teiNode: el.cloneNode(true)
+        teiNode: el
       }
 
       return (
